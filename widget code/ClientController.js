@@ -41,8 +41,6 @@ api.controller = function($interval, spModal) {
 
     $interval(updateClock, 1000);
 
-    // LIGHTWEIGHT AUTO REFRESH
-
     $interval(function() {
 
         c.server.refresh();
@@ -108,7 +106,6 @@ api.controller = function($interval, spModal) {
 
         var content = '';
 
-        // CRITICAL SERVICES
 
         if(type === 'services') {
 
@@ -120,8 +117,6 @@ api.controller = function($interval, spModal) {
                 '</ul>';
 
         }
-
-        // REVENUE RISK
 
         else if(type === 'revenue') {
 
