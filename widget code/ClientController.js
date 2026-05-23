@@ -13,8 +13,6 @@ api.controller = function($interval, spModal) {
 
     };
 
-    // FILTER PRIORITY
-
     c.filterPriority = function(priority) {
 
         c.priorityFilter = {
@@ -23,7 +21,6 @@ api.controller = function($interval, spModal) {
 
     };
 
-    // CLEAR FILTER
 
     c.clearFilter = function() {
 
@@ -31,7 +28,6 @@ api.controller = function($interval, spModal) {
 
     };
 
-    // LIVE CLOCK
 
     function updateClock() {
 
