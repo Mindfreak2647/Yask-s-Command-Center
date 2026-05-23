@@ -6,7 +6,6 @@ api.controller = function($interval, spModal) {
 
     c.priorityFilter = {};
 
-    // TOGGLE EXECUTIVE VIEW
 
     c.toggleExecutiveView = function() {
 
@@ -54,7 +53,6 @@ api.controller = function($interval, spModal) {
 
     }, 20000);
 
-    // INCIDENT POPUP
 
     c.openIncident = function(inc) {
 
@@ -110,8 +108,6 @@ api.controller = function($interval, spModal) {
 
     };
 
-    // EXECUTIVE DETAILS POPUP
-
     c.showExecutiveDetails = function(type) {
 
         var content = '';
@@ -142,8 +138,6 @@ api.controller = function($interval, spModal) {
 
         }
 
-        // SLA EXPOSURE
-
         else if(type === 'sla') {
 
             content =
@@ -158,7 +152,6 @@ api.controller = function($interval, spModal) {
 
         }
 
-        // REGIONAL IMPACT
 
         else if(type === 'regions') {
 
@@ -171,7 +164,6 @@ api.controller = function($interval, spModal) {
 
         }
 
-        // OPEN EXECUTIVE MODAL
 
         spModal.open({
 
