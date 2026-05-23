@@ -1,0 +1,196 @@
+api.controller = function($interval, spModal) {
+
+    var c = this;
+
+    c.executiveMode = false;
+
+    c.priorityFilter = {};
+
+    // TOGGLE EXECUTIVE VIEW
+
+    c.toggleExecutiveView = function() {
+
+        c.executiveMode = !c.executiveMode;
+
+    };
+
+    // FILTER PRIORITY
+
+    c.filterPriority = function(priority) {
+
+        c.priorityFilter = {
+            priority: priority
+        };
+
+    };
+
+    // CLEAR FILTER
+
+    c.clearFilter = function() {
+
+        c.priorityFilter = {};
+
+    };
+
+    // LIVE CLOCK
+
+    function updateClock() {
+
+        var now = new Date();
+
+        c.currentTime = now.toLocaleTimeString();
+
+    }
+
+    updateClock();
+
+    $interval(updateClock, 1000);
+
+    // LIGHTWEIGHT AUTO REFRESH
+
+    $interval(function() {
+
+        c.server.refresh();
+
+    }, 20000);
+
+    // INCIDENT POPUP
+
+    c.openIncident = function(inc) {
+
+        spModal.open({
+
+            title: 'Incident Details - ' + inc.number,
+
+            message:
+
+                '<div class=\"popup-content\">' +
+
+                '<p><strong>Short Description:</strong> ' +
+                inc.short_description + '</p>' +
+
+                '<p><strong>Priority:</strong> ' +
+                inc.priority + '</p>' +
+
+                '<p><strong>State:</strong> ' +
+                inc.state + '</p>' +
+
+                '<p><strong>Assigned To:</strong> ' +
+                inc.assigned_to + '</p>' +
+
+                '<p><strong>Assignment Group:</strong> ' +
+                inc.assignment_group + '</p>' +
+
+                '<p><strong>Category:</strong> ' +
+                inc.category + '</p>' +
+
+                '<p><strong>Business Service:</strong> ' +
+                inc.business_service + '</p>' +
+
+                '<p><strong>Configuration Item:</strong> ' +
+                inc.cmdb_ci + '</p>' +
+
+                '<p><strong>Caller:</strong> ' +
+                inc.caller + '</p>' +
+
+                '<p><strong>Description:</strong><br>' +
+                (inc.description || 'No Description') +
+                '</p>' +
+
+                '</div>',
+
+            buttons: [
+                {
+                    label: 'Close',
+                    cancel: true
+                }
+            ]
+
+        });
+
+    };
+
+    // EXECUTIVE DETAILS POPUP
+
+    c.showExecutiveDetails = function(type) {
+
+        var content = '';
+
+        // CRITICAL SERVICES
+
+        if(type === 'services') {
+
+            content =
+                '<ul>' +
+                '<li>Payment Gateway Service</li>' +
+                '<li>Customer Login API</li>' +
+                '<li>Core Banking Database</li>' +
+                '</ul>';
+
+        }
+
+        // REVENUE RISK
+
+        else if(type === 'revenue') {
+
+            content =
+                '<ul>' +
+                '<li>Online transactions impacted</li>' +
+                '<li>Estimated revenue exposure: $120K/hour</li>' +
+                '<li>Checkout failures increasing</li>' +
+                '</ul>';
+
+        }
+
+        // SLA EXPOSURE
+
+        else if(type === 'sla') {
+
+            content =
+                '<ul>' +
+                '<li>' + c.data.p1Count +
+                ' Priority 1 incidents near SLA breach</li>' +
+
+                '<li>Database latency exceeding threshold</li>' +
+
+                '<li>Escalation triggered to operations team</li>' +
+                '</ul>';
+
+        }
+
+        // REGIONAL IMPACT
+
+        else if(type === 'regions') {
+
+            content =
+                '<ul>' +
+                '<li>APAC region experiencing latency</li>' +
+                '<li>EU users reporting login failures</li>' +
+                '<li>North America stable</li>' +
+                '</ul>';
+
+        }
+
+        // OPEN EXECUTIVE MODAL
+
+        spModal.open({
+
+            title: 'Executive Impact Analysis',
+
+            message:
+                '<div class=\"popup-content\">' +
+                content +
+                '</div>',
+
+            buttons: [
+                {
+                    label: 'Close',
+                    cancel: true
+                }
+            ]
+
+        });
+
+    };
+
+};
