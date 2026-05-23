@@ -1,4 +1,4 @@
-.neuroops-container {
+.yask-container {
 
     background:
         radial-gradient(circle at top left, #172554 0%, #0f172a 45%),
@@ -21,7 +21,7 @@
     overflow: hidden;
 }
 
-.neuroops-container:before {
+.yask-container:before {
 
     content: "";
 
