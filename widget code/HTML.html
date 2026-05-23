@@ -1,0 +1,161 @@
+<div ng-if="!c.executiveMode">
+
+    <div class="neuroops-container">
+
+        <div class="top-navbar">
+
+            <div class="header-section">
+                <h1>Yask's Command Center</h1>
+                <p>AI Incident Operations Dashboard</p>
+            </div>
+
+            <button class="executive-btn"
+                    ng-click="c.toggleExecutiveView()">
+
+                Executive View
+
+            </button>
+
+        </div>
+
+        <div class="clock">
+            {{c.currentTime}}
+        </div>
+
+        <div class="metric-grid">
+
+            <div class="metric-card critical clickable"
+                 ng-click="c.filterPriority('1')">
+
+                <h2>{{data.p1Count}}</h2>
+                <p>P1 Incidents</p>
+
+            </div>
+
+            <div class="metric-card warning clickable"
+                 ng-click="c.filterPriority('2')">
+
+                <h2>{{data.p2Count}}</h2>
+                <p>P2 Incidents</p>
+
+            </div>
+
+            <div class="metric-card total clickable"
+                 ng-click="c.clearFilter()">
+
+                <h2>{{data.totalIncidents}}</h2>
+                <p>Total Active</p>
+
+            </div>
+
+        </div>
+
+        <div class="incident-panel">
+
+            <div class="incident-row clickable"
+                 ng-repeat="inc in data.incidents | filter:c.priorityFilter"
+                 ng-click="c.openIncident(inc)">
+
+                <div>
+                    <strong>{{inc.number}}</strong>
+                </div>
+
+                <div>
+                    {{inc.short_description}}
+                </div>
+
+                <div>
+                    Priority {{inc.priority}}
+                </div>
+
+                <div>
+                    {{inc.state}}
+                </div>
+
+                <div class="risk-high"
+                     ng-if="inc.priority == '1'">
+
+                    ⚠ High SLA Risk
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- EXECUTIVE VIEW -->
+
+<div ng-if="c.executiveMode">
+
+    <div class="neuroops-container">
+
+        <div class="top-navbar">
+
+            <div class="header-section">
+                <h1>Executive Operations View</h1>
+                <p>Business Impact Dashboard</p>
+            </div>
+
+            <button class="executive-btn"
+                    ng-click="c.toggleExecutiveView()">
+
+                Analyst View
+
+            </button>
+
+        </div>
+
+        <div class="executive-panel">
+
+            <div class="exec-card clickable"
+                 ng-click="c.showExecutiveDetails('services')">
+
+                <h2>3</h2>
+                <p>Critical Services Impacted</p>
+
+            </div>
+
+            <div class="exec-card clickable"
+                 ng-click="c.showExecutiveDetails('revenue')">
+
+                <h2>HIGH</h2>
+                <p>Estimated Revenue Risk</p>
+
+            </div>
+
+            <div class="exec-card clickable"
+                 ng-click="c.showExecutiveDetails('sla')">
+
+                <h2>{{data.p1Count}}</h2>
+                <p>Critical SLA Exposure</p>
+
+            </div>
+
+            <div class="exec-card clickable"
+                 ng-click="c.showExecutiveDetails('regions')">
+
+                <h2>APAC + EU</h2>
+                <p>Regional Impact</p>
+
+            </div>
+
+        </div>
+
+        <div class="ai-panel">
+
+            <h3>AI Operational Insight</h3>
+
+            <p>
+                Payment Gateway outage may breach SLA within 15 minutes.
+                Recommended escalation: Database Operations Team.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
