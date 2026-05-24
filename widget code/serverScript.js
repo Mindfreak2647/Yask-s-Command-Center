@@ -9,6 +9,9 @@
 
     gr.addActiveQuery();
 
+  
+    gr.setLimit(50);
+
     gr.orderByDesc('sys_created_on');
 
     gr.query();
@@ -61,6 +64,10 @@
 
             cmdb_ci:
                 gr.cmdb_ci.getDisplayValue(),
+
+          
+            location:
+                gr.location.getDisplayValue(),
 
             risk:
                 gr.priority == 1
